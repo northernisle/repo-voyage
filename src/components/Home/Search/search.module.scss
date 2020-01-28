@@ -1,0 +1,15 @@
+@import '../../../utils/styles/mixins';
+
+.container {
+  @include center-column-container(100%);
+  margin-top: 50px;
+}
+
+.title {
+  text-align: center;
+}
+
+.input {
+  min-height: 5em;
+  width: 500px;
+}

@@ -1,0 +1,5 @@
+@import '../../utils/styles/mixins';
+
+.container {
+  @include center-column-container(100%);
+}
