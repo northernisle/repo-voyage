@@ -1,0 +1,16 @@
+.container {
+  min-width: 60%;
+}
+
+.linearLoader {
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+.visible {
+  opacity: 1;
+}
+
+.row {
+  cursor: pointer;
+}

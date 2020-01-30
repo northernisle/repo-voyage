@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { QUERY_REPOS } from '../actions/actionTypes';
+import { QUERY_REPOS, SET_PER_PAGE } from '../actions/actionTypes';
 import processAsyncAction from './utils/processAsyncAction';
 
 const repoList = (repoList = null, action) => {
@@ -12,4 +12,14 @@ const repoList = (repoList = null, action) => {
   }
 };
 
-export default combineReducers({ repoList });
+const repoListSettings = (settings = { perPage: 10 }, action) => {
+  switch (action.type) {
+    case SET_PER_PAGE:
+      return { ...settings, perPage: action.payload };
+
+    default:
+      return settings;
+  }
+};
+
+export default combineReducers({ repoList, repoListSettings });

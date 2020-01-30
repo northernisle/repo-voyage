@@ -9,7 +9,7 @@ import styles from './search.module.scss';
 
 const Search = ({ queryRepos }) => {
   const [query, setQuery] = useState('');
-  const timer = useRef();
+  const timer = useRef({ timeout: null, debounceTime: 0 });
 
   useEffect(() => {
     const { q: query } = qs.parse(window.location.search);
@@ -19,23 +19,24 @@ const Search = ({ queryRepos }) => {
   }, [setQuery]);
 
   useEffect(() => {
-    clearTimeout(timer.current);
+    clearTimeout(timer.current.timeout);
 
-    timer.current = setTimeout(() => {
+    timer.current.timeout = setTimeout(() => {
       if (query) {
-        queryRepos(query);
+        queryRepos({ value: query });
       }
-    }, 1000);
+    }, timer.current.debounceTime);
   }, [query, queryRepos]);
 
   const handleInputChange = e => {
     const currentValue = e?.target.value.trim();
+    timer.current.debounceTime = 1000;
     setQuery(currentValue);
   };
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>The name of your next expedition</h1>
+      <h1 className={styles.title}>Name your next expedition</h1>
       <TextField
         className={styles.input}
         type="text"

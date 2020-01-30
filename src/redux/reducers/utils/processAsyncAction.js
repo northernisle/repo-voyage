@@ -1,7 +1,7 @@
 const processAsyncAction = (
   state = {
     pending: false,
-    data: null,
+    response: null,
     error: null
   },
   action
@@ -14,13 +14,13 @@ const processAsyncAction = (
       return {
         pending: false,
         error: null,
-        data: action.response
+        response: action.response
       };
 
     case 'error':
       return {
         pending: false,
-        data: null,
+        response: null,
         error: action.error
       };
 
