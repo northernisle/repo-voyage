@@ -1,11 +1,4 @@
-const processAsyncAction = (
-  state = {
-    pending: false,
-    response: null,
-    error: null
-  },
-  action
-) => {
+const processAsyncAction = (state, action) => {
   switch (action.status) {
     case 'pending':
       return { ...state, pending: true };
@@ -14,14 +7,16 @@ const processAsyncAction = (
       return {
         pending: false,
         error: null,
-        response: action.response
+        response: action.response,
+        options: state.options
       };
 
     case 'error':
       return {
         pending: false,
         response: null,
-        error: action.error
+        error: action.error,
+        options: state.options
       };
 
     default:

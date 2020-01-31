@@ -1,4 +1,4 @@
-export const QUERY_REPOS = 'QUERY_REPOS';
-export const SET_PER_PAGE = 'SET_PER_PAGE';
+export const SEARCH_REPOS = 'SEARCH_REPOS';
+export const SEARCH_REPOS_OPTIONS = 'SEARCH_REPOS_OPTIONS';
 
 export const GET_REPO = 'GET_REPO';

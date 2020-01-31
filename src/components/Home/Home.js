@@ -1,6 +1,7 @@
 import React from 'react';
+
 import Search from './Search';
-import RepoTable from './RepoTable';
+import RepoTableContainer from './RepoTableContainer';
 
 import styles from './home.module.scss';
 
@@ -8,7 +9,7 @@ const Home = () => {
   return (
     <div className={styles.container}>
       <Search />
-      <RepoTable />
+      <RepoTableContainer />
     </div>
   );
 };

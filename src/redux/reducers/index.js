@@ -1,25 +1,26 @@
 import { combineReducers } from 'redux';
-import { QUERY_REPOS, SET_PER_PAGE } from '../actions/actionTypes';
+import { SEARCH_REPOS, SEARCH_REPOS_OPTIONS } from '../actions/actionTypes';
 import processAsyncAction from './utils/processAsyncAction';
 
-const repoList = (repoList = null, action) => {
+const repos = (
+  state = {
+    pending: false,
+    response: null,
+    error: null,
+    options: { perPage: 10 }
+  },
+  action
+) => {
   switch (action.type) {
-    case QUERY_REPOS:
-      return processAsyncAction(repoList, action);
+    case SEARCH_REPOS:
+      return processAsyncAction(state, action);
+
+    case SEARCH_REPOS_OPTIONS:
+      return { ...state, options: { ...state.options, ...action.payload } };
 
     default:
-      return repoList;
+      return state;
   }
 };
 
-const repoListSettings = (settings = { perPage: 10 }, action) => {
-  switch (action.type) {
-    case SET_PER_PAGE:
-      return { ...settings, perPage: action.payload };
-
-    default:
-      return settings;
-  }
-};
-
-export default combineReducers({ repoList, repoListSettings });
+export default combineReducers({ repos });

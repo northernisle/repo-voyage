@@ -1,4 +1,3 @@
-import queryRepos from './queryRepos';
-import setPerPage from './setPerPage';
+import { searchRepos, searchReposOptions } from './searchRepos';
 
-export { queryRepos, setPerPage };
+export { searchRepos, searchReposOptions };

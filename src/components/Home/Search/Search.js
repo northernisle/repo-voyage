@@ -3,13 +3,14 @@ import qs from 'query-string';
 import { TextField } from '@material-ui/core';
 import { connect } from 'react-redux';
 
-import { queryRepos } from '../../../redux/actions';
+import { searchRepos, searchReposOptions } from '../../../redux/actions';
+import debounce from '../../../utils/helpers/debounce';
 
 import styles from './search.module.scss';
 
-const Search = ({ queryRepos }) => {
+const Search = ({ searchRepos, searchReposOptions }) => {
   const [query, setQuery] = useState('');
-  const timer = useRef({ timeout: null, debounceTime: 0 });
+  const timer = useRef(0);
 
   useEffect(() => {
     const { q: query } = qs.parse(window.location.search);
@@ -19,18 +20,17 @@ const Search = ({ queryRepos }) => {
   }, [setQuery]);
 
   useEffect(() => {
-    clearTimeout(timer.current.timeout);
-
-    timer.current.timeout = setTimeout(() => {
+    debounce(() => {
       if (query) {
-        queryRepos({ value: query });
+        searchReposOptions({ query, page: 1 });
+        searchRepos();
       }
-    }, timer.current.debounceTime);
-  }, [query, queryRepos]);
+    }, timer.current);
+  }, [query, searchRepos, searchReposOptions]);
 
   const handleInputChange = e => {
     const currentValue = e?.target.value.trim();
-    timer.current.debounceTime = 1000;
+    timer.current = 1000;
     setQuery(currentValue);
   };
 
@@ -49,4 +49,4 @@ const Search = ({ queryRepos }) => {
   );
 };
 
-export default connect(undefined, { queryRepos })(Search);
+export default connect(undefined, { searchRepos, searchReposOptions })(Search);

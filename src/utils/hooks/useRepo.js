@@ -1,10 +1,11 @@
-const useRepo = repoList => [
-  repoList?.pending,
-  repoList?.error,
+const useRepo = repos => [
+  repos?.pending,
+  repos?.error,
   {
-    data: repoList?.response?.data,
-    links: repoList?.response?.links,
-    query: repoList?.response?.query
+    ...repos?.response
+  },
+  {
+    ...repos?.options
   }
 ];
 
