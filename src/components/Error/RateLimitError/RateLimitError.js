@@ -8,10 +8,9 @@ class RateLimitError extends React.Component {
     super(props);
 
     this.headers = props.headers;
-    this.inverval = null;
+    this.interval = null;
 
     this.state = {
-      message: this.error?.response.data.message,
       counter: null
     };
   }
@@ -29,16 +28,15 @@ class RateLimitError extends React.Component {
     const currentDate = Math.floor(Date.now() / 1000);
 
     this.setState({
-      counter: resetDate - currentDate,
-      message: "The engine has overheated. We'll have to let it cool down."
+      counter: resetDate - currentDate
     });
 
-    this.inverval = setInterval(() => {
+    this.interval = setInterval(() => {
       this.tick();
     }, 1000);
   };
 
-  tick () {
+  tick() {
     if (this.state.counter > 1) {
       this.setState(prevState => ({
         counter: prevState.counter - 1
@@ -48,12 +46,14 @@ class RateLimitError extends React.Component {
 
       this.props.restore();
     }
-  };
+  }
 
   render() {
     return (
       <>
-        <p className={styles.text}>{this.state.message}</p>
+        <p className={styles.text}>
+          The engine has overheated. We'll have to let it cool down.
+        </p>
         {this.state.counter && (
           <p className={classnames(styles.text, styles.counter)}>
             We'll beam you back where you were in: {this.state.counter}

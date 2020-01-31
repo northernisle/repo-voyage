@@ -7,9 +7,12 @@ import { searchRepos, searchReposOptions } from '../../../redux/actions';
 import debounce from '../../../utils/helpers/debounce';
 
 import styles from './search.module.scss';
+import useRepos from '../../../utils/hooks/useRepos';
 
-const Search = ({ searchRepos, searchReposOptions }) => {
+const Search = ({ searchRepos, searchReposOptions, repos }) => {
   const [query, setQuery] = useState('');
+  const [fieldDisabled, setFieldDisabled] = useState(false);
+  const [,error] = useRepos(repos);
   const timer = useRef(0);
 
   useEffect(() => {
@@ -18,6 +21,10 @@ const Search = ({ searchRepos, searchReposOptions }) => {
       setQuery(query);
     }
   }, [setQuery]);
+
+  useEffect(() => {
+    setFieldDisabled(error?.response.status === 403);
+  }, [error, setFieldDisabled]);
 
   useEffect(() => {
     debounce(() => {
@@ -30,14 +37,18 @@ const Search = ({ searchRepos, searchReposOptions }) => {
 
   const handleInputChange = e => {
     const currentValue = e?.target.value.trim();
-    timer.current = 1000;
-    setQuery(currentValue);
+    if (currentValue.length <= 256) {
+      timer.current = 1000;
+      setQuery(currentValue);
+    }
   };
 
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Name your next expedition</h1>
       <TextField
+        
+        disabled={fieldDisabled}
         className={styles.input}
         type="text"
         label="Repository name"
@@ -49,4 +60,4 @@ const Search = ({ searchRepos, searchReposOptions }) => {
   );
 };
 
-export default connect(undefined, { searchRepos, searchReposOptions })(Search);
+export default connect(({ repos }) => ({ repos }), { searchRepos, searchReposOptions })(Search);

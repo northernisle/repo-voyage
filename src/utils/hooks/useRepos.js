@@ -1,4 +1,4 @@
-const useRepo = repos => [
+const useRepos = repos => [
   repos?.pending,
   repos?.error,
   {
@@ -9,4 +9,4 @@ const useRepo = repos => [
   }
 ];
 
-export default useRepo;
+export default useRepos;

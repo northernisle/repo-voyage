@@ -8,7 +8,7 @@ import store from '../../../redux/store';
 import { SEARCH_REPOS_OPTIONS } from '../../../redux/actions/actionTypes';
 
 import columns from './columns';
-import useRepo from '../../../utils/hooks/useRepo';
+import useRepos from '../../../utils/hooks/useRepos';
 import debounce from '../../../utils/helpers/debounce';
 import Error from '../../Error';
 import RepoTable from './RepoTable';
@@ -37,7 +37,7 @@ const reducer = (state, action) => {
 };
 
 const RepoTableContainer = ({ repos, searchRepos }) => {
-  const [pending, error, response] = useRepo(repos);
+  const [pending, error, response] = useRepos(repos);
   const { data, links } = response;
   const [state, dispatch] = useReducer(reducer, initialOptions);
 
@@ -108,12 +108,12 @@ const RepoTableContainer = ({ repos, searchRepos }) => {
     [pending, showTable]
   );
 
-  if (noResults) {
-    return <div>Did we miss our exit?</div>;
-  }
-
   if (showError) {
     return <Error error={error} restore={searchRepos} />;
+  }
+
+  if (noResults) {
+    return <div>Did we miss our exit?</div>;
   }
 
   if (initialLoad) {
