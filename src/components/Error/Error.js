@@ -10,12 +10,13 @@ const Error = ({ error, restore }) => {
   useEffect(() => {
     const status = error?.response.status;
     const headers = error?.response.headers;
-    const remaining = headers['x-ratelimit-remaining'];
+    const total = +headers['x-ratelimit-limit'];
+    const remaining = +headers['x-ratelimit-remaining'];
 
     if (status === 403) {
-      if (remaining === '0') {
+      if (remaining === 0) {
         setLimitError(true);
-      } else if (remaining === '9' && restore) {
+      } else if (total - remaining === 1) {
         restore();
       }
     }

@@ -44,7 +44,7 @@ class RateLimitError extends React.Component {
     } else {
       clearInterval(this.interval);
 
-      this.props.restore();
+      setTimeout(this.props.restore, 300);
     }
   }
 

@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { SEARCH_REPOS, SEARCH_REPOS_OPTIONS } from '../actions/actionTypes';
+import { SEARCH_REPOS, SEARCH_REPOS_OPTIONS, GET_REPO } from '../actions/actionTypes';
 import processAsyncAction from './utils/processAsyncAction';
 
 const repos = (
@@ -23,4 +23,20 @@ const repos = (
   }
 };
 
-export default combineReducers({ repos });
+const repo = (
+  state = {
+    pending: true, // reducer called on page load
+    response: null,
+    error: null
+  },
+  action
+) => {
+  switch (action.type) {
+    case GET_REPO:
+      return processAsyncAction(state, action);
+    default:
+      return state;
+  }
+};
+
+export default combineReducers({ repos, repo });

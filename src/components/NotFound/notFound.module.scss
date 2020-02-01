@@ -1,0 +1,6 @@
+@import '../../utils/styles/mixins';
+
+.container {
+  @include center-fullscren-container;
+  flex-direction: column;
+}

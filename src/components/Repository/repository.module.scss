@@ -1,0 +1,142 @@
+@import '../../utils/styles/mixins';
+@import '../../utils/styles/variables';
+
+.centerContainer {
+  @include center-fullscren-container();
+}
+
+.container {
+  @include for-phone-only {
+    display: flex;
+    flex-direction: column;
+  }
+
+  @include for-tablet-landscape-up {
+    display: grid;
+    grid-template-columns: 1fr 900px 1fr;
+  }
+}
+
+.header {
+  display: flex;
+
+  @include for-phone-only {
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+  }
+
+  @include for-tablet-portrait-up {
+    justify-content: center;
+  }
+}
+
+.ownerPicture {
+  width: 200px;
+
+  @include for-phone-only {
+    border-radius: 50%;
+    width: 100px;
+  }
+}
+
+.info {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+
+  @include for-phone-only {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+.name {
+  text-align: center;
+  font-size: 24px;
+
+  a {
+    text-decoration: none;
+    transition: all 0.3s;
+
+    &:hover {
+      color: $accent;
+    }
+  }
+
+  @include for-phone-only {
+    margin: 0;
+    font-size: 18px;
+
+    .description {
+      display: none;
+    }
+  }
+
+  @include for-tablet-portrait-up {
+    .description {
+      align-items: center;
+      display: block;
+      font-size: 20px;
+    }
+  }
+}
+
+.stats {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+.stats_item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: $light;
+  background-color: $primary;
+  text-decoration: none;
+  transition: all 0.3s;
+
+  p {
+    margin: 0 0 0 3px;
+  }
+
+  &:hover {
+    background-color: $accent;
+  }
+
+  @include for-phone-only {
+    padding: 1%;
+  }
+}
+
+.body {
+  display: grid;
+  grid-template-columns: 10px calc(100% - 20px) 10px;
+
+  @include for-tablet-portrait-up {
+    .description {
+      display: none;
+    }
+  }
+}
+
+.description {
+  grid-column: 1 / span 3;
+
+  p {
+    margin: 10px;
+  }
+
+  @include for-phone-only {
+    border-bottom: 1px solid #ccc;
+  }
+}
+
+.innerRow {
+  grid-column-start: 2;
+  margin-top: 10px;
+}

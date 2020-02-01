@@ -1,13 +1,14 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: ['babel-polyfill', path.resolve(__dirname, './src/index.js')],
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: 'bundle.js',
-    chunkFilename: '[name].bundle.js',
+    chunkFilename: '[name].[contenthash].js',
     publicPath: '/'
   },
   optimization: {
@@ -38,17 +39,23 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        use: [MiniCssExtractPlugin.loader, 'css-loader']
       },
       {
         test: /\.s(a|c)ss$/,
         exclude: /\.module.(s(a|c)ss)$/,
-        use: ['style-loader', 'css-loader', 'sass-loader']
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
       },
       {
         test: /\.module.s(a|c)ss$/,
         loader: [
-          'style-loader',
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: true, // TODO: update this to depend on environment settings,
+              reloadAll: true
+            }
+          },
           {
             loader: 'css-loader',
             options: {
@@ -72,6 +79,11 @@ module.exports = {
     new webpack.HashedModuleIdsPlugin(),
     new HtmlWebpackPlugin({
       template: './src/index.html'
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[id].css',
+      ignoreOrder: false
     })
   ],
   mode: process.env.MODE

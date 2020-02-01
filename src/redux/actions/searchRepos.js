@@ -1,61 +1,40 @@
+import parse from 'parse-link-header';
 import { SEARCH_REPOS, SEARCH_REPOS_OPTIONS } from './actionTypes';
 import store from '../store';
 import axios from '../../utils/configs/axiosConfig';
-import parse from 'parse-link-header';
+import asyncAction from './utils/asyncAction';
 
 export const searchRepos = () => async dispatch => {
-  const type = SEARCH_REPOS;
-  const options = store.getState().repos.options;
+  asyncAction(dispatch, SEARCH_REPOS, async () => {
+    const options = store.getState().repos.options;
 
-  dispatch({
-    type,
-    status: 'pending'
-  });
+    let url = '/search/repositories';
 
-  let response = null;
-  let error = null;
-  let status = null;
+    if (options.query) {
+      url += `?q=${options.query}`;
 
-  let url = '/search/repositories';
+      if (options.orderBy) {
+        url += `&sort=${options.orderBy}&order=${options.order}`;
+      }
 
-  if (options.query) {
-    url += `?q=${options.query}`;
+      if (options.perPage) {
+        url += `&per_page=${options.perPage}`;
+      }
 
-    if (options.orderBy) {
-      url += `&sort=${options.orderBy}&order=${options.order}`;
+      if (options.page) {
+        url += `&page=${options.page}`;
+      }
     }
 
-    if (options.perPage) {
-      url += `&per_page=${options.perPage}`;
-    }
-
-    if (options.page) {
-      url += `&page=${options.page}`;
-    }
-  }
-
-  try {
     const {
       data,
       headers: { link }
     } = await axios.get(url);
 
-    response = {
+    return {
       data,
       links: parse(link)
     };
-
-    status = 'success';
-  } catch (e) {
-    error = e;
-    status = 'error';
-  }
-
-  dispatch({
-    type,
-    status,
-    error,
-    response
   });
 };
 

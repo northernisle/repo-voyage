@@ -12,7 +12,7 @@ const App = () => (
     <ThemeProvider theme={settings}>
       <Switch>
         <Route path="/" exact={true} component={Home} />
-        <Route path="/:user/:repo" exact={true} component={Repository} />
+        <Route path="/:owner/:repoName" exact={true} component={Repository} />
         <Route component={NotFound} />
       </Switch>
     </ThemeProvider>

@@ -54,7 +54,7 @@ const RepoTable = ({
                   style={{ cursor: 'pointer' }}
                   key={row.id}
                   hover
-                  onClick={() => handleRowClick(row.name, row.owner.login)}
+                  onClick={() => handleRowClick(row.owner.login, row.name)}
                 >
                   <TableCell>{row.name}</TableCell>
                   <TableCell>{row.owner.login}</TableCell>

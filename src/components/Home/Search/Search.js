@@ -7,12 +7,12 @@ import { searchRepos, searchReposOptions } from '../../../redux/actions';
 import debounce from '../../../utils/helpers/debounce';
 
 import styles from './search.module.scss';
-import useRepos from '../../../utils/hooks/useRepos';
+import useResponse from '../../../utils/hooks/useResponse';
 
 const Search = ({ searchRepos, searchReposOptions, repos }) => {
   const [query, setQuery] = useState('');
   const [fieldDisabled, setFieldDisabled] = useState(false);
-  const [,error] = useRepos(repos);
+  const [,error] = useResponse(repos);
   const timer = useRef(0);
 
   useEffect(() => {

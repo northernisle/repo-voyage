@@ -1,0 +1,31 @@
+@import '../../../utils/styles/mixins';
+
+.loading {
+  @include center-column-container(100%);
+}
+
+.container {
+  background-color: #fafafa;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.header {
+  width: 100%;
+  background-color: #eaeaea;
+  font-size: 22px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+
+  p {
+    padding-left: 10px;
+  }
+
+  @include for-phone-only {
+    font-size: 18px;
+  }
+}
+
+.content {
+  padding: 0 15px 10px 15px;
+}

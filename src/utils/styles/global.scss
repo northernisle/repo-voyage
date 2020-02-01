@@ -2,4 +2,14 @@
 
 body {
   font-family: $font;
+  color: $dark;
+}
+
+a {
+  color: $secondary;
+}
+
+pre, blockquote {
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }

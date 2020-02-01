@@ -2,13 +2,14 @@ import React, { useMemo, useReducer, useEffect } from 'react';
 import { LinearProgress, CircularProgress } from '@material-ui/core';
 import { connect } from 'react-redux';
 import classnames from 'classnames/bind';
+import { useHistory } from 'react-router-dom';
 
 import { searchRepos } from '../../../redux/actions';
 import store from '../../../redux/store';
 import { SEARCH_REPOS_OPTIONS } from '../../../redux/actions/actionTypes';
 
 import columns from './columns';
-import useRepos from '../../../utils/hooks/useRepos';
+import useResponse from '../../../utils/hooks/useResponse';
 import debounce from '../../../utils/helpers/debounce';
 import Error from '../../Error';
 import RepoTable from './RepoTable';
@@ -37,9 +38,11 @@ const reducer = (state, action) => {
 };
 
 const RepoTableContainer = ({ repos, searchRepos }) => {
-  const [pending, error, response] = useRepos(repos);
+  const [pending, error, response] = useResponse(repos);
   const { data, links } = response;
   const [state, dispatch] = useReducer(reducer, initialOptions);
+  
+  const history = useHistory();
 
   useEffect(() => {
     dispatch({ type: 'UPDATE', payload: repos.options });
@@ -85,7 +88,9 @@ const RepoTableContainer = ({ repos, searchRepos }) => {
     );
   };
 
-  const handleRowClick = () => {};
+  const handleRowClick = (owner, repo) => {
+    history.push(`/${owner}/${repo}`);
+  };
 
   const dispatchOptions = (options, debounceRequest = true) => {
     dispatch({
