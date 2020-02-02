@@ -1,16 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
 import qs from 'query-string';
-import { TextField } from '@material-ui/core';
+import { TextField, InputAdornment, IconButton } from '@material-ui/core';
+import { Clear } from '@material-ui/icons';
 import { connect } from 'react-redux';
 
-import { searchRepos, searchReposOptions } from '../../../redux/actions';
+import { searchRepos, searchReposOptions, resetRepos } from '../../../redux/actions';
 import debounce from '../../../utils/helpers/debounce';
 
 import styles from './search.module.scss';
 import { useResponse } from '../../../utils/hooks';
 import { useHistory } from 'react-router-dom';
 
-const Search = ({ searchRepos, searchReposOptions, repos }) => {
+const Search = ({ searchRepos, searchReposOptions, resetRepos, repos }) => {
   const [text, setText] = useState('');
   const [disabled, setDisabled] = useState(false);
 
@@ -32,7 +33,6 @@ const Search = ({ searchRepos, searchReposOptions, repos }) => {
       setText(query);
     }
   }, [urlQuery, query]);
-
 
   useEffect(() => {
     if (!text) {
@@ -61,6 +61,12 @@ const Search = ({ searchRepos, searchReposOptions, repos }) => {
     }
   };
 
+  const handleClearEvent = () => {
+    setText('');
+    history.push('');
+    resetRepos();
+  };
+
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Name your next expedition</h1>
@@ -72,6 +78,22 @@ const Search = ({ searchRepos, searchReposOptions, repos }) => {
         variant="filled"
         value={text}
         onChange={e => handleInputChange(e)}
+        InputProps={{
+          endAdornment: (
+            <>
+              {(text && !disabled) && (
+                <InputAdornment>
+                  <IconButton
+                    onClick={handleClearEvent}
+                    onMouseDown={e => e.preventDefault()}
+                  >
+                    <Clear />
+                  </IconButton>
+                </InputAdornment>
+              )}
+            </>
+          )
+        }}
       />
     </div>
   );
@@ -79,5 +101,6 @@ const Search = ({ searchRepos, searchReposOptions, repos }) => {
 
 export default connect(({ repos }) => ({ repos }), {
   searchRepos,
-  searchReposOptions
+  searchReposOptions,
+  resetRepos
 })(Search);

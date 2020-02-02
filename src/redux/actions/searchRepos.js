@@ -1,5 +1,5 @@
 import parse from 'parse-link-header';
-import { SEARCH_REPOS, SEARCH_REPOS_OPTIONS } from './actionTypes';
+import { SEARCH_REPOS, SEARCH_REPOS_OPTIONS, RESET_REPOS } from './actionTypes';
 import store from '../store';
 import axios from '../../utils/configs/axiosConfig';
 import asyncAction from './utils/asyncAction';
@@ -49,4 +49,9 @@ export const searchReposOptions = (
 ) => ({
   type: SEARCH_REPOS_OPTIONS,
   payload: options
+});
+
+export const resetRepos = () => ({
+  type: RESET_REPOS,
+  payload: null
 });
