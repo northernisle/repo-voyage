@@ -9,7 +9,7 @@ import store from '../../../redux/store';
 import { SEARCH_REPOS_OPTIONS } from '../../../redux/actions/actionTypes';
 
 import columns from './columns';
-import useResponse from '../../../utils/hooks/useResponse';
+import { useResponse } from '../../../utils/hooks';
 import debounce from '../../../utils/helpers/debounce';
 import Error from '../../Error';
 import RepoTable from './RepoTable';
@@ -41,7 +41,7 @@ const RepoTableContainer = ({ repos, searchRepos }) => {
   const [pending, error, response] = useResponse(repos);
   const { data, links } = response;
   const [state, dispatch] = useReducer(reducer, initialOptions);
-  
+
   const history = useHistory();
 
   useEffect(() => {
@@ -69,23 +69,24 @@ const RepoTableContainer = ({ repos, searchRepos }) => {
   };
 
   const handlePageChange = (event, newPage) => {
+    if (pending) {
+      return;
+    }
+
     // github uses a 1-index based page system
     const requiredPage = newPage > state.page - 1 ? 'next' : 'prev';
 
     dispatchOptions({
       page: links[requiredPage]?.page
-    });
+    }, false);
   };
 
   const handleRowsPerPageChange = event => {
     const rows = parseInt(event.target.value, 10);
 
-    dispatchOptions(
-      {
-        perPage: rows
-      },
-      false
-    );
+    dispatchOptions({
+      perPage: rows
+    }, false);
   };
 
   const handleRowClick = (owner, repo) => {
@@ -114,15 +115,23 @@ const RepoTableContainer = ({ repos, searchRepos }) => {
   );
 
   if (showError) {
-    return <Error error={error} restore={searchRepos} />;
+    return (
+      <div className={classnames(styles.centerContainer, styles.errorContainer)}>
+        <Error error={error} restore={searchRepos} />
+      </div>
+    );
   }
 
   if (noResults) {
-    return <div>Did we miss our exit?</div>;
+    return <div className={styles.centerContainer}>Did we miss our exit?</div>;
   }
 
   if (initialLoad) {
-    return <CircularProgress />;
+    return (
+      <div className={styles.centerContainer}>
+        <CircularProgress />
+      </div>
+    );
   }
 
   return (

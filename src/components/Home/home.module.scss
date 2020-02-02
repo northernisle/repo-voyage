@@ -1,5 +1,19 @@
 @import '../../utils/styles/mixins';
 
 .container {
-  @include center-column-container(100%);
+  @include for-phone-only {
+    display: flex;
+    flex-direction: column;
+  }
+
+  @include for-tablet-landscape-up {
+    display: grid;
+    grid-template-columns: 1fr 850px 1fr;
+  }
+}
+
+.innerRow {
+  @include for-tablet-landscape-up {
+    grid-column-start: 2;
+  }
 }

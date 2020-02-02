@@ -8,8 +8,10 @@ import styles from './home.module.scss';
 const Home = () => {
   return (
     <div className={styles.container}>
-      <Search />
-      <RepoTableContainer />
+      <div className={styles.innerRow}>
+        <Search />
+        <RepoTableContainer />
+      </div>
     </div>
   );
 };

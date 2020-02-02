@@ -1,5 +1,18 @@
+@import '../../../utils/styles/mixins';
+
+.centerContainer, .errorContainer {
+  @include center-column-container(100%);
+}
+
+.errorContainer {
+  @include for-phone-only {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
 .container {
-  min-width: 60%;
+  width: 100%;
 }
 
 .linearLoader {

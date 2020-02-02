@@ -3,13 +3,25 @@
 .container {
   @include center-column-container(100%);
   margin-top: 50px;
+
+  @include for-phone-only {
+    margin-top: 30px;
+  }
 }
 
 .title {
   text-align: center;
+
+  @include for-phone-only {
+    font-size: 22px;
+  }
 }
 
 .input {
   min-height: 5em;
   width: 500px;
+
+  @include for-phone-only {
+    width: 100%;
+  }
 }

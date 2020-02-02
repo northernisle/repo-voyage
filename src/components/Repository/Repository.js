@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from 'react';
-import { CircularProgress } from '@material-ui/core';
+import { CircularProgress, Tooltip } from '@material-ui/core';
 import { StarRate, Visibility, CallSplit } from '@material-ui/icons';
 import { connect } from 'react-redux';
 
 import { getRepo, clearRepo } from '../../redux/actions/';
-import useResponse from '../../utils/hooks/useResponse';
+import { useResponse } from '../../utils/hooks';
 
 import Error from '../Error';
 import LanguageList from './LanguageList';
@@ -63,27 +63,33 @@ const Repository = ({ match, repo, getRepo, clearRepo }) => {
               </div>
             </div>
             <div className={styles.stats}>
-              <a
-                href={`${response.html_url}/stargazers`}
-                className={styles.stats_item}
-              >
-                <StarRate />
-                <p>{response.stargazers_count}</p>
-              </a>
-              <a
-                href={`${response.html_url}/watchers`}
-                className={styles.stats_item}
-              >
-                <Visibility />
-                <p>{response.subscribers_count}</p>
-              </a>
-              <a
-                href={`${response.html_url}/network/members`}
-                className={styles.stats_item}
-              >
-                <CallSplit />
-                <p>{response.forks_count}</p>
-              </a>
+              <Tooltip title="Stars">
+                <a
+                  href={`${response.html_url}/stargazers`}
+                  className={styles.stats_item}
+                >
+                  <StarRate />
+                  <p>{response.stargazers_count}</p>
+                </a>
+              </Tooltip>
+              <Tooltip title="Watchers">
+                <a
+                  href={`${response.html_url}/watchers`}
+                  className={styles.stats_item}
+                >
+                  <Visibility />
+                  <p>{response.subscribers_count}</p>
+                </a>
+              </Tooltip>
+              <Tooltip title="Forks">
+                <a
+                  href={`${response.html_url}/network/members`}
+                  className={styles.stats_item}
+                >
+                  <CallSplit />
+                  <p>{response.forks_count}</p>
+                </a>
+              </Tooltip>
             </div>
           </div>
         </div>

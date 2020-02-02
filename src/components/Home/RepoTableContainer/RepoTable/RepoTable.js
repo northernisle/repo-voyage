@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   TableContainer,
   Paper,
@@ -10,6 +10,7 @@ import {
   TablePagination,
   TableBody
 } from '@material-ui/core';
+import { useWindowDimensions } from '../../../../utils/hooks';
 
 const RepoTable = ({
   columns,
@@ -20,10 +21,21 @@ const RepoTable = ({
   handlePageChange,
   handleRowsPerPageChange
 }) => {
+  const { width } = useWindowDimensions();
+  const [size, setSize] = useState('medium');
+
+  useEffect(() => {
+    if (width < 600) {
+      setSize('small');
+    } else {
+      setSize('medium');
+    }
+  }, [width, setSize]);
+
   return (
     <Paper>
       <TableContainer>
-        <Table>
+        <Table size={size}>
           <TableHead>
             <TableRow>
               {columns.map(column => (
