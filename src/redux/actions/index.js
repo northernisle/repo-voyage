@@ -1,4 +1,4 @@
 import { searchRepos, searchReposOptions } from './searchRepos';
-import { getRepo } from './getRepo';
+import { getRepo, clearRepo } from './repoActions';
 
-export { searchRepos, searchReposOptions, getRepo };
+export { searchRepos, searchReposOptions, getRepo, clearRepo };

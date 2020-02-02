@@ -1,5 +1,10 @@
 import { combineReducers } from 'redux';
-import { SEARCH_REPOS, SEARCH_REPOS_OPTIONS, GET_REPO } from '../actions/actionTypes';
+import {
+  SEARCH_REPOS,
+  SEARCH_REPOS_OPTIONS,
+  GET_REPO,
+  CLEAR_REPO
+} from '../actions/actionTypes';
 import processAsyncAction from './utils/processAsyncAction';
 
 const repos = (
@@ -34,6 +39,12 @@ const repo = (
   switch (action.type) {
     case GET_REPO:
       return processAsyncAction(state, action);
+    case CLEAR_REPO:
+      return {
+        response: null,
+        pending: true,
+        error: null
+      };
     default:
       return state;
   }

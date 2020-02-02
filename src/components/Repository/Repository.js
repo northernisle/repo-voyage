@@ -3,7 +3,7 @@ import { CircularProgress } from '@material-ui/core';
 import { StarRate, Visibility, CallSplit } from '@material-ui/icons';
 import { connect } from 'react-redux';
 
-import { getRepo } from '../../redux/actions/';
+import { getRepo, clearRepo } from '../../redux/actions/';
 import useResponse from '../../utils/hooks/useResponse';
 
 import Error from '../Error';
@@ -12,7 +12,7 @@ import Readme from './Readme/Readme';
 
 import styles from './repository.module.scss';
 
-const Repository = ({ match, repo, getRepo }) => {
+const Repository = ({ match, repo, getRepo, clearRepo }) => {
   const [pending, error, response] = useResponse(repo);
   const { owner, repoName } = match.params;
   const restore = useRef();
@@ -22,7 +22,9 @@ const Repository = ({ match, repo, getRepo }) => {
       getRepo(owner, repoName);
       restore.current = () => getRepo(owner, repoName);
     }
-  }, [owner, repoName, getRepo]);
+
+    return () => clearRepo();
+  }, [owner, repoName, getRepo, clearRepo]);
 
   if (error) {
     return (
@@ -101,4 +103,6 @@ const Repository = ({ match, repo, getRepo }) => {
   );
 };
 
-export default connect(({ repo }) => ({ repo }), { getRepo })(Repository);
+export default connect(({ repo }) => ({ repo }), { getRepo, clearRepo })(
+  Repository
+);

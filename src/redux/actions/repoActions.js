@@ -1,4 +1,4 @@
-import { GET_REPO } from './actionTypes';
+import { GET_REPO, CLEAR_REPO } from './actionTypes';
 import axios from '../../utils/configs/axiosConfig';
 import asyncAction from './utils/asyncAction';
 
@@ -11,3 +11,8 @@ export const getRepo = (owner, repo) => async dispatch => {
     return data;
   });
 };
+
+export const clearRepo = () => ({
+  type: CLEAR_REPO,
+  payload: null
+});
