@@ -6,7 +6,7 @@ import asyncAction from './utils/asyncAction';
 
 export const searchRepos = () => async dispatch => {
   asyncAction(dispatch, SEARCH_REPOS, async () => {
-    const options = store.getState().repos.options;
+    const options = store.getState().repoList.options;
 
     let url = '/search/repositories';
 

@@ -37,16 +37,16 @@ const reducer = (state, action) => {
   }
 };
 
-const RepoTableContainer = ({ repos, searchRepos }) => {
-  const [pending, error, response] = useResponse(repos);
+const RepoTableContainer = ({ repoList, searchRepos }) => {
+  const [pending, error, response] = useResponse(repoList);
   const { data, links } = response;
   const [state, dispatch] = useReducer(reducer, initialOptions);
 
   const history = useHistory();
 
   useEffect(() => {
-    dispatch({ type: 'UPDATE', payload: repos.options });
-  }, [repos.options]);
+    dispatch({ type: 'UPDATE', payload: repoList.options });
+  }, [repoList.options]);
 
   const noResults = !pending && data?.total_count === 0;
   const initialLoad = pending && (!data || data?.total_count === 0);
@@ -152,6 +152,6 @@ const RepoTableContainer = ({ repos, searchRepos }) => {
   );
 };
 
-export default connect(({ repos }) => ({ repos }), { searchRepos })(
+export default connect(({ repoList }) => ({ repoList }), { searchRepos })(
   RepoTableContainer
 );

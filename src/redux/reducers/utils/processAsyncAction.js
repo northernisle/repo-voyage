@@ -5,18 +5,18 @@ const processAsyncAction = (state, action) => {
 
     case 'success':
       return {
+        ...state,
         pending: false,
         error: null,
-        response: action.response,
-        options: state.options
+        response: action.response
       };
 
     case 'error':
       return {
+        ...state,
         pending: false,
         response: null,
-        error: action.error,
-        options: state.options
+        error: action.error
       };
 
     default:

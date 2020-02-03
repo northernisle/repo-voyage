@@ -1,20 +1,9 @@
 @import '../../utils/styles/mixins';
 @import '../../utils/styles/variables';
+@import '../../utils/styles/global';
 
 .centerContainer {
   @include center-fullscren-container();
-}
-
-.container {
-  @include for-phone-only {
-    display: flex;
-    flex-direction: column;
-  }
-
-  @include for-tablet-landscape-up {
-    display: grid;
-    grid-template-columns: 1fr 900px 1fr;
-  }
 }
 
 .header {

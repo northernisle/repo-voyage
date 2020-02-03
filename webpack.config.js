@@ -1,7 +1,14 @@
+const dotenv = require('dotenv');
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+const env = dotenv.config().parsed;
+const envKeys = Object.keys(env).reduce((prev, next) => {
+  prev[`process.env.${next}`] = JSON.stringify(env[next]);
+  return prev;
+}, {});
 
 module.exports = {
   entry: ['babel-polyfill', path.resolve(__dirname, './src/index.js')],
@@ -52,8 +59,8 @@ module.exports = {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              hmr: true, // TODO: update this to depend on environment settings,
-              reloadAll: true
+              hmr: process.env.MODE === 'development',
+              reloadAll: process.env.MODE === 'development'
             }
           },
           {
@@ -84,7 +91,8 @@ module.exports = {
       filename: '[name].css',
       chunkFilename: '[id].css',
       ignoreOrder: false
-    })
+    }),
+    new webpack.DefinePlugin(envKeys)
   ],
   mode: process.env.MODE
 };

@@ -1,4 +1,5 @@
 @import './variables';
+@import './mixins';
 
 body {
   font-family: $font;
@@ -14,4 +15,22 @@ a {
 pre, blockquote, code {
   white-space: pre-wrap;
   word-wrap: break-word;
+}
+
+.container {
+  @include for-phone-only {
+    display: flex;
+    flex-direction: column;
+  }
+
+  @include for-tablet-landscape-up {
+    display: grid;
+    grid-template-columns: 1fr 900px 1fr;
+  }
+}
+
+.innerRow {
+  @include for-tablet-landscape-up {
+    grid-column-start: 2;
+  }
 }

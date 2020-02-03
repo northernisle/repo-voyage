@@ -11,20 +11,27 @@ import styles from './search.module.scss';
 import { useResponse } from '../../../utils/hooks';
 import { useHistory } from 'react-router-dom';
 
-const Search = ({ searchRepos, searchReposOptions, resetRepos, repos }) => {
+const Search = ({ searchRepos, searchReposOptions, resetRepos, repoList }) => {
   const [text, setText] = useState('');
   const [disabled, setDisabled] = useState(false);
+  const [hideClear, setHideClear] = useState(false);
 
   const { q: urlQuery } = qs.parse(window.location.search);
   const history = useHistory();
 
-  const [, error, , { query }] = useResponse(repos);
+  const [pending, error, , { query }] = useResponse(repoList);
 
-  const timer = useRef(0);
+  const timer = useRef(0); // used for the debounce cooldown time
 
   useEffect(() => {
     setDisabled(error?.response.status === 403);
   }, [error]);
+
+  useEffect(() => {
+    if (!pending) {
+      setHideClear(false);
+    }
+  }, [pending, setHideClear]);
 
   useEffect(() => {
     if (urlQuery) {
@@ -38,6 +45,8 @@ const Search = ({ searchRepos, searchReposOptions, resetRepos, repos }) => {
     if (!text) {
       return;
     }
+
+    setHideClear(text !== query);
 
     debounce(() => {
       if (text === query) {
@@ -81,7 +90,7 @@ const Search = ({ searchRepos, searchReposOptions, resetRepos, repos }) => {
         InputProps={{
           endAdornment: (
             <>
-              {(text && !disabled) && (
+              {(text && !disabled && !hideClear && !pending) && (
                 <InputAdornment>
                   <IconButton
                     onClick={handleClearEvent}
@@ -99,7 +108,7 @@ const Search = ({ searchRepos, searchReposOptions, resetRepos, repos }) => {
   );
 };
 
-export default connect(({ repos }) => ({ repos }), {
+export default connect(({ repoList }) => ({ repoList }), {
   searchRepos,
   searchReposOptions,
   resetRepos
