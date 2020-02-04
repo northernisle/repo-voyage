@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { removeToken } from '../../redux/actions';
+import { useTranslation } from 'react-i18next';
 
 const clientId = process.env.CLIENT_ID;
 const baseUrl = process.env.BASE_URL;
@@ -10,6 +11,7 @@ const state = 'almond_milk'; // TODO: make this a randomly generated string
 
 const AuthButton = ({ token, removeToken, ...props }) => {
   const [signedIn, setSignedIn] = useState(false);
+  const { t } = useTranslation(undefined, { useSuspense: false });
 
   useEffect(() => {
     setSignedIn(!!token);
@@ -29,14 +31,13 @@ const AuthButton = ({ token, removeToken, ...props }) => {
     window.location.replace(url);
   };
 
-  // eslint-disable-next-line eqeqeq
   if (!clientId || !baseUrl || local === 'true') {
     return null;
   }
 
   return (
     <Button className={props.className} onClick={handleAuthClick}>
-      {signedIn ? 'Sign out' : 'Sign in'}
+      {t(signedIn ? 'Sign out' : 'Sign in')}
     </Button>
   );
 };

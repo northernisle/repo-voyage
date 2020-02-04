@@ -1,0 +1,21 @@
+{
+  "translation": {
+    "Home": "Home",
+    "Name your next expedition": "Name your next expedition",
+    "Repository name": "Repository name",
+    "The engine has overheated. We'll have to let it cool down.": "The engine has overheated. We'll have to let it cool down.",
+    "We'll beam you back where you were in": "We'll beam you back where you were in",
+    "Lost, huh?": "Lost, huh?",
+    "Get back to safety": "Get back to safety",
+    "Sign in": "Sign in",
+    "Sign out": "Sign out",
+    "Rows per page": "Rows per page",
+    "Name": "Name",
+    "Owner": "Owner",
+    "Language": "Language",
+    "Stars": "Stars",
+    "Watchers": "Watchers",
+    "Forks": "Forks",
+    "Issues": "Issues"
+  }
+}

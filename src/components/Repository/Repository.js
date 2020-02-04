@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { CircularProgress, Tooltip } from '@material-ui/core';
 import { StarRate, Visibility, CallSplit } from '@material-ui/icons';
 import { connect } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { getRepo, clearRepo } from '../../redux/actions/';
 import { useResponse } from '../../utils/hooks';
@@ -16,6 +17,8 @@ const Repository = ({ match, repo, getRepo, clearRepo }) => {
   const [pending, error, response] = useResponse(repo);
   const { owner, repoName } = match.params;
   const restore = useRef();
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (owner && repoName) {
@@ -63,7 +66,7 @@ const Repository = ({ match, repo, getRepo, clearRepo }) => {
               </div>
             </div>
             <div className={styles.stats}>
-              <Tooltip title="Stars">
+              <Tooltip title={t('Stars')}>
                 <a
                   href={`${response.html_url}/stargazers`}
                   className={styles.stats_item}
@@ -72,7 +75,7 @@ const Repository = ({ match, repo, getRepo, clearRepo }) => {
                   <p>{response.stargazers_count}</p>
                 </a>
               </Tooltip>
-              <Tooltip title="Watchers">
+              <Tooltip title={t('Watchers')}>
                 <a
                   href={`${response.html_url}/watchers`}
                   className={styles.stats_item}
@@ -81,7 +84,7 @@ const Repository = ({ match, repo, getRepo, clearRepo }) => {
                   <p>{response.subscribers_count}</p>
                 </a>
               </Tooltip>
-              <Tooltip title="Forks">
+              <Tooltip title={t('Forks')}>
                 <a
                   href={`${response.html_url}/network/members`}
                   className={styles.stats_item}

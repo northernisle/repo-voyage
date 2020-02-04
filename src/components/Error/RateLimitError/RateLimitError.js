@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
+import { withTranslation } from 'react-i18next';
 
 import styles from '../error.module.scss';
 
@@ -52,11 +53,11 @@ class RateLimitError extends React.Component {
     return (
       <>
         <p className={styles.text}>
-          The engine has overheated. We'll have to let it cool down.
+          {this.props.t("The engine has overheated. We'll have to let it cool down.")}
         </p>
         {this.state.counter && (
           <p className={classnames(styles.text, styles.counter)}>
-            We'll beam you back where you were in: {this.state.counter}
+            {this.props.t("We'll beam you back where you were in")}: {this.state.counter}
           </p>
         )}
       </>
@@ -64,4 +65,4 @@ class RateLimitError extends React.Component {
   }
 }
 
-export default RateLimitError;
+export default withTranslation()(RateLimitError);

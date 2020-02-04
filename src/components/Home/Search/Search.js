@@ -3,6 +3,7 @@ import qs from 'query-string';
 import { TextField, InputAdornment, IconButton } from '@material-ui/core';
 import { Clear } from '@material-ui/icons';
 import { connect } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { searchRepos, searchReposOptions, resetRepos } from '../../../redux/actions';
 import debounce from '../../../utils/helpers/debounce';
@@ -12,6 +13,8 @@ import { useResponse } from '../../../utils/hooks';
 import { useHistory } from 'react-router-dom';
 
 const Search = ({ searchRepos, searchReposOptions, resetRepos, repoList }) => {
+  const { t } = useTranslation(undefined, { useSuspense: false });
+
   const [text, setText] = useState('');
   const [disabled, setDisabled] = useState(false);
   const [hideClear, setHideClear] = useState(false);
@@ -78,12 +81,12 @@ const Search = ({ searchRepos, searchReposOptions, resetRepos, repoList }) => {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Name your next expedition</h1>
+      <h1 className={styles.title}>{t('Name your next expedition')}</h1>
       <TextField
         disabled={disabled}
         className={styles.input}
         type="text"
-        label="Repository name"
+        label={t('Repository name')}
         variant="filled"
         value={text}
         onChange={e => handleInputChange(e)}

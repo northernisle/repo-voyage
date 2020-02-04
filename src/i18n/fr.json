@@ -1,0 +1,21 @@
+{
+  "translation": {
+    "Home": "Accueil",
+    "Name your next expedition": "Nommez votre prochaine expédition",
+    "Repository name": "Nom du référentiel",
+    "The engine has overheated. We'll have to let it cool down.": "Le moteur a surchauffé. Nous devrons laisser refroidir.",
+    "We'll beam you back where you were in": "Nous vous renvoyons où vous étiez en",
+    "Lost, huh?": "Perdu, hein?",
+    "Get back to safety": "Retour à la sécurité",
+    "Sign in": "Se connecter",
+    "Sign out": "Déconnexion",
+    "Rows per page": "Lignes par page",
+    "Name": "Nom",
+    "Owner": "Propriétaire",
+    "Language": "Langue",
+    "Stars": "Étoiles",
+    "Watchers": "Observateurs",
+    "Forks": "Fourches",
+    "Issues": "Problèmes"
+  }
+}

@@ -10,6 +10,7 @@ import {
   TablePagination,
   TableBody
 } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import { useWindowDimensions } from '../../../../utils/hooks';
 
 const RepoTable = ({
@@ -21,6 +22,8 @@ const RepoTable = ({
   handlePageChange,
   handleRowsPerPageChange
 }) => {
+  const { t } = useTranslation(undefined, { useSuspense: false });
+
   const { width } = useWindowDimensions();
   const [size, setSize] = useState('medium');
 
@@ -49,11 +52,11 @@ const RepoTable = ({
                         }
                         onClick={() => handleSort(column.id)}
                       >
-                        {column.label}
+                        {t(column.label)}
                       </TableSortLabel>
                     </>
                   ) : (
-                    <>{column.label}</>
+                    <>{t(column.label)}</>
                   )}
                 </TableCell>
               ))}
@@ -72,7 +75,7 @@ const RepoTable = ({
                   <TableCell>{row.owner.login}</TableCell>
                   <TableCell>{row.language}</TableCell>
                   <TableCell>{row.stargazers_count}</TableCell>
-                  <TableCell>{row.watchers}</TableCell>
+                  <TableCell>{row.watchers_count}</TableCell>
                   <TableCell>{row.forks}</TableCell>
                   <TableCell>{row.open_issues}</TableCell>
                 </TableRow>
@@ -90,6 +93,7 @@ const RepoTable = ({
           page={state.page - 1} // github uses a 1-index based page system
           onChangePage={handlePageChange}
           onChangeRowsPerPage={handleRowsPerPageChange}
+          labelRowsPerPage={`${t('Rows per page')}:`}
         />
       )}
     </Paper>

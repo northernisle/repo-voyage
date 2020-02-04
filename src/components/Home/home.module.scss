@@ -1,2 +1,6 @@
 @import '../../utils/styles/mixins';
 @import '../../utils/styles/global';
+
+.center {
+  @include center-column-container(100%);
+}

@@ -11,7 +11,13 @@ const Home = () => {
     <div className={styles.container}>
       <div className={styles.innerRow}>
         <Search />
-        <Suspense fallback={<CircularProgress />}>
+        <Suspense
+          fallback={
+            <div className={styles.center}>
+              <CircularProgress />
+            </div>
+          }
+        >
           <RepoTableContainer />
         </Suspense>
       </div>
