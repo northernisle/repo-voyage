@@ -5,7 +5,8 @@ import { removeToken } from '../../redux/actions';
 
 const clientId = process.env.CLIENT_ID;
 const baseUrl = process.env.BASE_URL;
-const state = 'almond_milk';
+const local = process.env.LOCAL;
+const state = 'almond_milk'; // TODO: make this a randomly generated string
 
 const AuthButton = ({ token, removeToken, ...props }) => {
   const [signedIn, setSignedIn] = useState(false);
@@ -28,7 +29,8 @@ const AuthButton = ({ token, removeToken, ...props }) => {
     window.location.replace(url);
   };
 
-  if (!clientId || !baseUrl) {
+  // eslint-disable-next-line eqeqeq
+  if (!clientId || !baseUrl || local === 'true') {
     return null;
   }
 

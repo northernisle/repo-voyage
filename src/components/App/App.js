@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core';
 import settings from '../../utils/configs/muiSettings';
 import { connect } from 'react-redux';
+import HybridRouter from '../HybridRouter';
 
 import { getToken } from '../../redux/actions';
 
 import Home from '../Home';
-import Repository from '../Repository';
 import NotFound from '../NotFound';
 import Auth from '../Auth';
-import Header from '../Header/Header';
+import Header from '../Header';
+import Repository from '../Repository';
 
 const App = ({ getToken }) => {
   useEffect(() => {
@@ -18,7 +19,7 @@ const App = ({ getToken }) => {
   }, [getToken]);
 
   return (
-    <BrowserRouter>
+    <HybridRouter>
       <ThemeProvider theme={settings}>
         <Header />
         <Switch>
@@ -28,7 +29,7 @@ const App = ({ getToken }) => {
           <Route component={NotFound} />
         </Switch>
       </ThemeProvider>
-    </BrowserRouter>
+    </HybridRouter>
   );
 };
 

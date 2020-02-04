@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { Suspense } from 'react';
+import { CircularProgress } from '@material-ui/core';
 
 import Search from './Search';
-import RepoTableContainer from './RepoTableContainer';
-
 import styles from './home.module.scss';
+
+const RepoTableContainer = React.lazy(() => import('./RepoTableContainer'));
 
 const Home = () => {
   return (
     <div className={styles.container}>
       <div className={styles.innerRow}>
         <Search />
-        <RepoTableContainer />
+        <Suspense fallback={<CircularProgress />}>
+          <RepoTableContainer />
+        </Suspense>
       </div>
     </div>
   );

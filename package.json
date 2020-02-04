@@ -2,10 +2,11 @@
   "name": "repo-voyage",
   "version": "1.0.0",
   "description": "",
-  "main": "babel.config.js",
+  "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --open --inline --hot",
-    "build": "webpack"
+    "start": "webpack-dev-server --mode development --open --inline --hot",
+    "start:prod": "webpack-dev-server --mode production --open --progress",
+    "build": "webpack --mode production --progress"
   },
   "keywords": [],
   "author": "",
@@ -17,7 +18,6 @@
     "@babel/preset-react": "^7.8.3",
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
-    "babel-polyfill": "^6.26.0",
     "css-loader": "^3.4.2",
     "dotenv": "^8.2.0",
     "eslint": "^6.8.0",
@@ -36,6 +36,7 @@
     "webpack-dev-server": "^3.10.1"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.8.3",
     "@material-ui/core": "^4.9.0",
     "@material-ui/icons": "^4.5.1",
     "axios": "^0.19.2",
