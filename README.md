@@ -40,4 +40,4 @@ configuration files and create the following environment variables:
 | `CLIENT_ID`           | the `client_id` GitHub gave you                                                             |
 | `CLIENT_SECRET`       | the `client_secret` GitHub gave you                                                         |
 | `BASE_URL`            | the url the application is running from. Use `http://localhost:3000` as a default           |
-| `LOCAL`               | `true` or `false` indicating wether you're runnign the application from a local file or WDS |
+| `LOCAL`               | `true` or `false` indicating whether you're runnign the application from a local file or WDS |
