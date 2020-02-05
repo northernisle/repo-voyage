@@ -3,16 +3,20 @@ import qs from 'query-string';
 import { TextField, InputAdornment, IconButton } from '@material-ui/core';
 import { Clear } from '@material-ui/icons';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import { searchRepos, searchReposOptions, resetRepos } from '../../../redux/actions';
+import {
+  searchRepos,
+  searchReposOptions,
+  resetRepos
+} from '../../../redux/actions';
 import debounce from '../../../utils/helpers/debounce';
+import { useResponse } from '../../../utils/hooks';
 
 import styles from './search.module.scss';
-import { useResponse } from '../../../utils/hooks';
-import { useHistory } from 'react-router-dom';
 
-const Search = ({ searchRepos, searchReposOptions, resetRepos, repoList }) => {
+const Search = ({ repoList, searchRepos, searchReposOptions, resetRepos }) => {
   const { t } = useTranslation(undefined, { useSuspense: false });
 
   const [text, setText] = useState('');
@@ -93,7 +97,7 @@ const Search = ({ searchRepos, searchReposOptions, resetRepos, repoList }) => {
         InputProps={{
           endAdornment: (
             <>
-              {(text && !disabled && !hideClear && !pending) && (
+              {text && !disabled && !hideClear && !pending && (
                 <InputAdornment>
                   <IconButton
                     onClick={handleClearEvent}

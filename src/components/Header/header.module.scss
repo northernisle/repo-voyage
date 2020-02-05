@@ -8,11 +8,6 @@
   background-color: $primary;
   display: flex;
   justify-content: center;
-
-  // @include for-tablet-portrait-up {
-  //   display: grid;
-  //   grid-template-columns: 1fr 900px 1fr;
-  // }
 }
 
 .innerRow {
