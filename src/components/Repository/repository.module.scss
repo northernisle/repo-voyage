@@ -19,6 +19,18 @@
   }
 }
 
+.pictureLink {
+  @include for-phone-only {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @include for-tablet-portrait-up {
+    padding-left: 10px;
+  }
+}
+
 .ownerPicture {
   width: 200px;
 
@@ -44,10 +56,12 @@
 .name {
   text-align: center;
   font-size: 24px;
+  padding: 10px 20px;
 
   a {
     text-decoration: none;
     transition: all 0.3s;
+    word-wrap: anywhere;
 
     &:hover {
       color: $accent;

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { CircularProgress, Tooltip } from '@material-ui/core';
 import { StarRate, Visibility, CallSplit } from '@material-ui/icons';
 import { connect } from 'react-redux';
@@ -49,7 +49,7 @@ const Repository = ({ match, repo, getRepo, clearRepo }) => {
     <div className={styles.container}>
       <div className={styles.innerRow}>
         <div className={styles.header}>
-          <a href={response.owner.html_url}>
+          <a className={styles.pictureLink} href={response.owner.html_url}>
             <img
               className={styles.ownerPicture}
               src={response.owner.avatar_url}
