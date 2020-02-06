@@ -8,3 +8,7 @@ export const CLEAR_REPO = 'CLEAR_REPO';
 export const SET_TOKEN = 'SET_TOKEN';
 export const GET_TOKEN = 'GET_TOKEN';
 export const REMOVE_TOKEN = 'REMOVE_TOKEN';
+
+export const SET_ELAPSED_DELEGATIONS = 'SET_ELAPSED_DELEGATIONS';
+export const SET_ELAPSED_TIME = 'SET_ELAPSED_TIME';
+export const RESET_ELAPSED_TIME = 'RESET_ELAPSED_TIME';

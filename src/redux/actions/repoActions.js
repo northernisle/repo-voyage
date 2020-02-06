@@ -9,7 +9,7 @@ export const getRepo = (owner, repo) => async dispatch => {
     const { data } = await axios.get(url);
 
     return data;
-  });
+  }, 3); // Currently there are 3 requests made on each page load
 };
 
 export const clearRepo = () => ({

@@ -2,28 +2,44 @@
 @import '../../utils/styles/global';
 @import '../../utils/styles/mixins';
 
-.container {
+.header {
   width: 100%;
   height: 50px;
   background-color: $primary;
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 75px calc(100% - 150px) 75px;
 }
 
-.innerRow {
+.navigation {
+  grid-column-start: 2;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+}
 
-  @include for-tablet-portrait-up {
-    width: 100%;
-  }
+.panel {
+  grid-column-start: 3;
+  display: flex;
+  justify-content: center;
 }
 
 .link {
   text-decoration: none;
 }
 
-.button {
+.counter {
+  border-radius: 5px;
+  background-color: $primary-dark;
+  transition: all 0.3s;
+  opacity: 0;
+}
+
+.visible {
+  opacity: 1;
+  padding: 0 10px;
+}
+
+.button,
+.counterText {
   color: #fff !important;
 }

@@ -14,7 +14,7 @@ import Readme from './Readme/Readme';
 import styles from './repository.module.scss';
 
 const Repository = ({ match, repo, getRepo, clearRepo }) => {
-  const [pending, error, response] = useResponse(repo);
+  const { pending, error, response } = useResponse(repo);
   const { owner, repoName } = match.params;
   const restore = useRef();
 

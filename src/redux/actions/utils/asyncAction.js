@@ -1,4 +1,6 @@
-export default async (dispatch, type, requestFn) => {
+import { setDelegations } from '../elapsedTimeActions';
+
+export default async (dispatch, type, requestFn, timerDelegations = 0) => {
   dispatch({
     type,
     status: 'pending'
@@ -9,6 +11,7 @@ export default async (dispatch, type, requestFn) => {
   let status = null;
 
   try {
+    dispatch(setDelegations(timerDelegations));
     response = await requestFn();
 
     status = 'success';

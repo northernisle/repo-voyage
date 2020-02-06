@@ -38,7 +38,7 @@ const reducer = (state, action) => {
 };
 
 const RepoTableContainer = ({ repoList, searchRepos }) => {
-  const [pending, error, response] = useResponse(repoList);
+  const { pending, error, response } = useResponse(repoList);
   const { data, links } = response;
   const [state, dispatch] = useReducer(reducer, initialOptions);
 
@@ -109,7 +109,7 @@ const RepoTableContainer = ({ repoList, searchRepos }) => {
   };
 
   // conditional rending of the 'visible' class
-  const className = useMemo(
+  const tableClassNames = useMemo(
     () => cx({ linearLoader: true, visible: pending && showTable }),
     [pending, showTable]
   );
@@ -136,7 +136,7 @@ const RepoTableContainer = ({ repoList, searchRepos }) => {
 
   return (
     <div className={styles.container}>
-      <LinearProgress className={className} variant="query" />
+      <LinearProgress className={tableClassNames} variant="query" />
       {showTable && (
         <RepoTable
           columns={columns}

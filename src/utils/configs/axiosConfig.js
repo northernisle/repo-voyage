@@ -1,5 +1,6 @@
 import axios from 'axios';
 import store from '../../redux/store';
+import { resetTime, setTime } from '../../redux/actions/elapsedTimeActions';
 
 const api = axios.create({
   baseURL: 'https://api.github.com'
@@ -20,5 +21,24 @@ export const updateToken = (token) => {
     delete api.defaults.headers.common['Authorization'];
   }
 };
+
+api.interceptors.request.use(config => {
+  config.metadata = { start: new Date().getTime() };
+  return config;
+}, error => Promise.reject(error));
+
+api.interceptors.response.use(response => {
+  const start = response.config.metadata.start;
+  const end = new Date().getTime();
+  const elapsed = end - start;
+
+  store.dispatch(setTime(elapsed));
+
+  return response;
+}, error => {
+  store.dispatch(resetTime());
+
+  return Promise.reject(error);
+});
 
 export default api;

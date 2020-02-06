@@ -9,14 +9,21 @@ import { useTranslation } from 'react-i18next';
 import {
   searchRepos,
   searchReposOptions,
-  resetRepos
+  resetRepos,
+  resetTime
 } from '../../../redux/actions';
 import debounce from '../../../utils/helpers/debounce';
 import { useResponse } from '../../../utils/hooks';
 
 import styles from './search.module.scss';
 
-const Search = ({ repoList, searchRepos, searchReposOptions, resetRepos }) => {
+const Search = ({
+  repoList,
+  searchRepos,
+  searchReposOptions,
+  resetRepos,
+  resetTime
+}) => {
   const { t } = useTranslation(undefined, { useSuspense: false });
 
   const [text, setText] = useState('');
@@ -26,7 +33,11 @@ const Search = ({ repoList, searchRepos, searchReposOptions, resetRepos }) => {
   const { q: urlQuery } = qs.parse(window.location.search);
   const history = useHistory();
 
-  const [pending, error, , { query }] = useResponse(repoList);
+  const {
+    pending,
+    error,
+    options: { query }
+  } = useResponse(repoList);
 
   const timer = useRef(0); // used for the debounce cooldown time
 
@@ -81,6 +92,7 @@ const Search = ({ repoList, searchRepos, searchReposOptions, resetRepos }) => {
     setText('');
     history.push('');
     resetRepos();
+    resetTime();
   };
 
   return (
@@ -101,6 +113,7 @@ const Search = ({ repoList, searchRepos, searchReposOptions, resetRepos }) => {
                 <InputAdornment>
                   <IconButton
                     onClick={handleClearEvent}
+                    data-testid="clear-button"
                     onMouseDown={e => e.preventDefault()}
                   >
                     <Clear />
@@ -118,5 +131,6 @@ const Search = ({ repoList, searchRepos, searchReposOptions, resetRepos }) => {
 export default connect(({ repoList }) => ({ repoList }), {
   searchRepos,
   searchReposOptions,
-  resetRepos
+  resetRepos,
+  resetTime
 })(Search);

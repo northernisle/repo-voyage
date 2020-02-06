@@ -1,6 +1,7 @@
 import { searchRepos, searchReposOptions, resetRepos } from './repoListActions';
 import { getRepo, clearRepo } from './repoActions';
 import { setToken, getToken, removeToken } from './authActions';
+import { setTime, setDelegations, resetTime } from './elapsedTimeActions';
 
 export {
   searchRepos,
@@ -10,5 +11,8 @@ export {
   clearRepo,
   setToken,
   getToken,
-  removeToken
+  removeToken,
+  setTime,
+  setDelegations,
+  resetTime
 };
