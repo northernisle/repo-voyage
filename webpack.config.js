@@ -22,26 +22,6 @@ module.exports = (env, options) => {
       chunkFilename: '[name].[contenthash].js',
       publicPath: envKeys.LOCAL === 'true' ? './' : '/'
     },
-    optimization: {
-      runtimeChunk: 'single',
-      splitChunks: {
-        chunks: 'all',
-        minSize: 0,
-        maxInitialRequests: Infinity,
-        cacheGroups: {
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name(module) {
-              const packageName = module.context.match(
-                /[\\/]node_modules[\\/](.*?)([\\/]|$)/
-              )[1];
-
-              return `npm.${packageName.replace('@', '')}`;
-            }
-          }
-        }
-      }
-    },
     module: {
       rules: [
         {
