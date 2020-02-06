@@ -4,6 +4,9 @@ Developed using React, Redux, SCSS with CSS modules on the side.
 Testing comes with Jest and React Testing Library, to whom Cypress will tag along in the future.
 
 ### Running the application
+The application is available at http://northernisle.me/ hosted on GitHub Pages. Because of that the environment is
+very limited; authentication is disabled, there exist routing problems and there are issues loading the page from mobile devices.
+
 This project was built upon Node.js@13.5.0 with npm@6.13.6 and utilizes some new features, so lower versions of Node may
 not work as intended.  
 Before starting the application make sure to run `npm install`.
