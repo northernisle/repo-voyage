@@ -27,12 +27,18 @@ Before starting the application make sure to run `npm install`. If there are any
 ### Authentication
 Authentication is implemented using OAuth as a proof-of-concept. It should NOT be used in a real scenario because the
 `client_secret` is visible both in the application's runtime and in the request's body. Since this flow is usually implemented
-in pair with a back-end server, and this is a pure front-end project, a [third-party intermidiate server](https://cors-anywhere.herokuapp.com/)
-is used to reroute the request to GitHub.
+in pair with a back-end server, and this is a pure front-end project, a [third-party intermidiate server](https://cors-anywhere.herokuapp.com/) is used to reroute the request to GitHub. You'll have to supply your own tokens to enable authentication in the project.
+Also, keep in mind that authentication is not available if the project is run from a local file.
+
+#### Obtaining the tokens from GitHub
+1. [Register a new OAuth app](https://github.com/settings/applications/new).
+2. In `Homepage URL` input `http://localhost:3000/`.
+3. In `Authorization callback URL` input `http://localhost:3000/auth`.
+4. Save `Client ID` and `Client Secret`.
 
 #### Setting up the application
-The `.env` is exposed only for convenience and under normal circumstances should be hidden. Bellow you can find the variables
-the application accepts.
+Using the tokens you previously obtained, you'll need to create `.env` file in the root of the project next to all the 
+configuration files and create the following environment variables:
 
 | Environment Variable  | Description                                                                                   |
 | --------------------- | --------------------------------------------------------------------------------------------- |
